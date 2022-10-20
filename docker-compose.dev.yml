@@ -5,19 +5,21 @@ services:
             - 5050:5000
         command: npm run dev
         volumes:
-            - ./server/src:/app/src
+            - ./server/src:/app/src/
         depends_on:
             - mongodb
     client:
         build: ./client
         ports:
-            - 58080:3000
+            - 3000:3000
         volumes:
-            - ./client/src:/app/src
-            - ./client/public:/app/public
+            - ./client/src:/app/src/
+            - ./client/public:/app/public/
         command: npm start
         depends_on:
             - server
+        environment:
+            - WATCHPACK_POLLING=true
     mongodb:
         image: mongo
         volumes:
